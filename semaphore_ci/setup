@@ -1,0 +1,11 @@
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get update -q
+sudo apt-get install -q -y build-essential python-catkin-pkg python-rosdep python-wstool python-rosinstall python-catkin-tools
+sudo rosdep init
+rosdep update
+
+# We are now inside the git repo, let's create the catkin ws
+mkdir -p ~/catkin_ws/src
+ln -s $SEMAPHORE_PROJECT_DIR ~/catkin_ws/src
+cd ~/catkin_ws

@@ -1,0 +1,12 @@
+ROS_DISTRO_NAME=$1
+
+if [ -z $ROS_DISTRO_NAME ]; then
+  echo "Please provide ROS distro name"
+  exit 1
+fi
+
+sudo apt-get install -q -y ros-$ROS_DISTRO_NAME-ros-base
+source /opt/ros/$ROS_DISTRO_NAME/setup.bash
+catkin init
+rosdep install --from-paths src -i -y
+catkin build --limit-status-rate 0.1 --no-notify -DCMAKE_BUILD_TYPE=RelWithDebInfo
